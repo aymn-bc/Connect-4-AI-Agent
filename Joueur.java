@@ -13,7 +13,7 @@ public class Joueur {
 
     public int choisirCoup(){
         Scanner scanner = new Scanner(System.in);
-        System.err.println("choisit une colonne: ");
+        System.out.print("choisit une colonne: ");
         int colone = scanner.nextInt();
         return colone;
     }

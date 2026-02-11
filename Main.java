@@ -1,8 +1,35 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
+        int choice = 0;
         Joueur j1 = new JoueurAI(1);
         Joueur j2 = new JoueurAI(2);
+        while (choice > 3 || choice < 1){
+            System.out.println("1. AI vs AI");
+            System.out.println("2. Human vs AI");
+            System.out.println("3. Human vs Human");
+            System.out.print("Choose the game Mode: ");
+            Scanner scanner = new Scanner(System.in);
+            choice = scanner.nextInt();
+            if (choice == 1){
+                j1 = new JoueurAI(1);
+                j2 = new JoueurAI(2);
+            }else if (choice == 2){
+                System.out.print("Player name: ");
+                String name1 = scanner.nextLine();
+                j1 = new Joueur(1, name1);
+                j2 = new JoueurAI(2);
+            }else if (choice == 2){
+                System.out.print("Player1 name: ");
+                String name1 = scanner.nextLine();
+                System.out.print("Player2 name: ");
+                String name2 = scanner.nextLine();
+                j1 = new Joueur(1, name1);
+                j2 = new Joueur(2, name2);
+            }    
+        }
         Joueur currentPlayer = j1;
         Joueur otherPlayer = j2;
         Joueur x;
@@ -15,7 +42,7 @@ public class Main {
             System.out.println("Joueur : " + currentPlayer.getNom());
             int numColonne;
             if (currentPlayer instanceof JoueurAI ){
-                numColonne = ((JoueurAI) currentPlayer).getBestMove(puissance, 11);
+                numColonne = ((JoueurAI) currentPlayer).getBestMove(puissance, 13);
             }else {
                 numColonne = currentPlayer.choisirCoup();
             }

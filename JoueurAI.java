@@ -1,6 +1,6 @@
 public class JoueurAI extends Joueur{
     public JoueurAI(int id){
-        super(id, "AI Player");
+        super(id, "AI Player " + id );
     }
 
     public int minimax(Game position, int depth, boolean maximizing, int alpha, int beta){
