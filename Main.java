@@ -42,7 +42,7 @@ public class Main {
             System.out.println("Joueur : " + currentPlayer.getNom());
             int numColonne;
             if (currentPlayer instanceof JoueurAI ){
-                numColonne = ((JoueurAI) currentPlayer).getBestMove(puissance, 13);
+                numColonne = ((JoueurAI) currentPlayer).getBestMove(puissance, 10);
             }else {
                 numColonne = currentPlayer.choisirCoup();
             }

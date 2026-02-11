@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class JoueurAI extends Joueur{
     public JoueurAI(int id){
         super(id, "AI Player " + id );
@@ -67,6 +71,7 @@ public class JoueurAI extends Joueur{
         int bestCol = -1;
         int bestScore = Integer.MIN_VALUE;
         int myId = getId();
+        List<Integer> bestMoves = new ArrayList<>();
 
         int nbColonne = position.getNbColonnes();
         for (int col = 0; col < nbColonne; col++){
@@ -90,11 +95,15 @@ public class JoueurAI extends Joueur{
 
             if (score > bestScore){
                 bestScore = score;
-                bestCol = col;
+                bestMoves.clear();
+                bestMoves.add(col);
+            } else if (score == bestScore) {
+                bestMoves.add(col);
             }
         }
 
-        return bestCol;
+        int randomIndex = new Random().nextInt(bestMoves.size());
+        return bestMoves.get(randomIndex);
     }
 
     public int evaluatePosition(Game position){
