@@ -8,13 +8,13 @@ public class JoueurAI extends Joueur{
     }
 
     public int minimax(Game position, int depth, boolean maximizing, int alpha, int beta){
+        int myId = getId();
+        int oppId = 3 - myId;
         if (depth == 0 || position.estFin()) {
-            return evaluatePosition(position);
+            return evaluatePosition(position, myId, oppId);
         }
 
         int nbColonne = position.getNbColonnes();
-        int myId = getId();
-        int oppId = 3 - myId;
 
         if (maximizing){
             int best = Integer.MIN_VALUE;
@@ -68,7 +68,6 @@ public class JoueurAI extends Joueur{
     }
 
     public int getBestMove(Game position, int searchDepth){
-        int bestCol = -1;
         int bestScore = Integer.MIN_VALUE;
         int myId = getId();
         List<Integer> bestMoves = new ArrayList<>();
@@ -106,8 +105,18 @@ public class JoueurAI extends Joueur{
         return bestMoves.get(randomIndex);
     }
 
-    public int evaluatePosition(Game position){
+    public int evaluatePosition(Game position, int myId, int oppId){
         // make the columns weighted to focus more on central column
-        return 0;
+        int[] colWeight = {1, 2, 4, 5, 4, 2, 1};
+        int[] lineWeight = {1, 2, 4, 8, 16, 32};
+        int myScore = 0; 
+        int oppScore = 0; 
+        for (int i = 0; i < position.getNbLigne(); i++){
+            for (int j = 0; j < position.getNbColonnes(); j++){
+                if (position.getGrille()[i][j] == myId) myScore += colWeight[j] + lineWeight[i];
+                else if (position.getGrille()[i][j] == oppId) oppScore += (colWeight[j] + lineWeight[i]) * 2;
+            }
+        }
+        return myScore - oppScore;
     }
 }

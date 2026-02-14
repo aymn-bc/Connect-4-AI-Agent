@@ -124,7 +124,13 @@ public class Game{
     public void seeGrille(){
         for (int i = 0; i < nbLigne; i++){
             for (int j = 0; j < nbColonnes; j++){
-                System.out.print(grille[i][j]+ " ");
+                if (grille[i][j] == 1) {
+                    System.out.print(Colors.ANSI_RED + "X" + Colors.ANSI_RESET + " ");
+                } else if (grille[i][j] == 2) {
+                    System.out.print(Colors.ANSI_YELLOW + "O" + Colors.ANSI_RESET + " ");
+                } else {
+                    System.out.print(Colors.ANSI_BLUE + "." + Colors.ANSI_RESET + " ");
+                }
             }
             System.out.println();
         }
@@ -136,5 +142,9 @@ public class Game{
 
     public int getNbLigne() {
         return nbLigne;
+    }
+
+    public int[][] getGrille() {
+        return grille;
     }
 }
