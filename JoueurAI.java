@@ -7,11 +7,15 @@ public class JoueurAI extends Joueur{
         super(id, "AI Player " + id );
     }
 
+    // Planifier
     public int minimax(Game position, int depth, boolean maximizing, int alpha, int beta){
         int myId = getId();
         int oppId = 3 - myId;
-        if (depth == 0 || position.estFin()) {
+        if (depth == 0) {
             return evaluatePosition(position, myId, oppId);
+        }
+        if (position.estFin()){
+            return 0;
         }
 
         int nbColonne = position.getNbColonnes();
@@ -67,6 +71,7 @@ public class JoueurAI extends Joueur{
         }
     }
 
+    // Decider
     public int getBestMove(Game position, int searchDepth){
         int bestScore = Integer.MIN_VALUE;
         int myId = getId();
@@ -101,6 +106,7 @@ public class JoueurAI extends Joueur{
             }
         }
 
+        System.out.println("best score: " + bestScore);
         int randomIndex = new Random().nextInt(bestMoves.size());
         return bestMoves.get(randomIndex);
     }
@@ -110,13 +116,20 @@ public class JoueurAI extends Joueur{
         int[] colWeight = {1, 2, 4, 5, 4, 2, 1};
         int[] lineWeight = {1, 2, 4, 8, 16, 32};
         int myScore = 0; 
-        int oppScore = 0; 
-        for (int i = 0; i < position.getNbLigne(); i++){
-            for (int j = 0; j < position.getNbColonnes(); j++){
-                if (position.getGrille()[i][j] == myId) myScore += colWeight[j] + lineWeight[i];
-                else if (position.getGrille()[i][j] == oppId) oppScore += (colWeight[j] + lineWeight[i]) * 2;
+        int oppScore = 0;
+
+        int nbLigne = position.getNbLigne();
+        int nbColonne = position.getNbColonnes();
+        int[][] grille = position.getGrille();
+
+        for (int i = 0; i < nbLigne; i++){
+            for (int j = 0; j < nbColonne; j++){
+                if (grille[i][j] == myId) myScore += colWeight[j] + lineWeight[i];
+                else if (grille[i][j] == oppId) oppScore += (colWeight[j] + lineWeight[i]) * 2;
             }
         }
         return myScore - oppScore;
     }
+
+    // Executer est dans le super class (super.setCoup(ligne, colonne, id))
 }

@@ -46,7 +46,7 @@ public class Main {
 
         Game puissance = new Game(j1.getId(), j2.getId());
         boolean fin = false;
-
+        puissance.seeGrille();
         while (!fin) {
 
             System.out.println("Joueur : " + currentPlayer.getNom());
