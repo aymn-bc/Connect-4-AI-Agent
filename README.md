@@ -1,10 +1,6 @@
 Connect 4 AI Agent 🎮
-https://img.shields.io/badge/Java-17%252B-orange
-https://img.shields.io/badge/License-MIT-blue
 
 A Java-based artificial intelligence agent that plays Connect 4 using the Minimax algorithm with Alpha-Beta pruning. The AI evaluates positions using sophisticated heuristics for center control, row priority, and threat detection.
-
-https://demo.gif <!-- Add a demo GIF here -->
 
 📋 Table of Contents
 Features
