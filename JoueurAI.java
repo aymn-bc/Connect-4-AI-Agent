@@ -129,7 +129,60 @@ public class JoueurAI extends Joueur{
                 else if (grille[i][j] == oppId) oppScore += (colWeight[j] + lineWeight[i]) * 2;
             }
         }
-        return myScore - oppScore;
+        
+        return myScore - oppScore + threatDetection(position, myId, oppId);
+    }
+
+    public int threatDetection(Game position, int myId, int oppId){
+        int score = 0;
+        int nbLigne = position.getNbLigne();
+        int nbColonne = position.getNbColonnes();
+        int[][] grille = position.getGrille();
+
+        for (int i = 0; i < nbLigne; i++){
+            for (int j = 0; j < nbColonne; j++){
+                if (j <= nbColonne - 4) {
+                    score += evalWindow(grille[i][j], grille[i][j+1], grille[i][j+2], grille[i][j+3], myId, oppId);
+                }
+            
+                if (i <= nbLigne - 4){ 
+                    score += evalWindow(grille[i][j], grille[i+1][j], grille[i+2][j], grille[i+3][j], myId, oppId);
+                }
+
+                if (i <= nbLigne - 4 && j <= nbColonne - 4) {
+                    score += evalWindow(grille[i][j], grille[i+1][j+1], grille[i+2][j+2], grille[i+3][j+3], myId, oppId);
+                }
+
+                if (i >= 3 && j <= nbColonne - 4) {
+                    score += evalWindow(grille[i][j], grille[i-1][j+1], grille[i-2][j+2], grille[i-3][j+3], myId, oppId);
+                }
+            }
+        }
+        return score;
+    }
+
+    public int evalWindow(int a, int b, int c, int d, int myId, int oppId){
+        int myColCount = 0;
+        int oppColCount = 0;
+        int emptyColCount = 0;
+        
+        int[] cols = {a, b, c, d};
+        for (int col : cols){
+            if (col == myId) myColCount++;
+            else if (col == oppId) oppColCount++;
+            else emptyColCount++;
+        }
+        if (myColCount > 0 && oppColCount > 0){
+            return 0;
+        }
+
+        if (myColCount == 3 && emptyColCount == 1) return 100;
+        if (myColCount == 2 && emptyColCount == 2) return 10;
+
+        if (oppColCount == 3 && emptyColCount == 1) return -200;
+        if (oppColCount == 2 && emptyColCount == 2) return -20;
+
+        return 0;
     }
 
     // Executer est dans le super class (super.setCoup(ligne, colonne, id))

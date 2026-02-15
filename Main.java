@@ -52,13 +52,15 @@ public class Main {
             System.out.println("Joueur : " + currentPlayer.getNom());
             int numColonne;
             if (currentPlayer instanceof JoueurAI ){
-                int depth = 10;
-                if (puissance.getMoveCount() >= 16){
-                    depth = 12;
+                int depth;
+                if (puissance.getMoveCount() <= 15){
+                    depth = 9;
+                } else if (puissance.getMoveCount() <= 25){
+                    depth = 10;
+                }else {
+                    depth = 14;
                 }
-                if (puissance.getMoveCount() >= 25){
-                    depth = 15;
-                }
+
                 System.out.println(depth);
                 numColonne = ((JoueurAI) currentPlayer).getBestMove(puissance, depth);
             }else {
