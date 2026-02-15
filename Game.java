@@ -4,6 +4,7 @@ public class Game{
     private int nbColonnes = 7;
     private int idJ1;
     private int idJ2;
+    private int moveCount = 0;
 
 
     public Game(int idJ1,int idJ2){
@@ -104,6 +105,7 @@ public class Game{
         int ligne = getLigneVideByColonne(colonne);
         if (ligne == -1) return false;
         grille[ligne][colonne] = idJoueur;
+        moveCount++;
         return true;
     }
 
@@ -146,5 +148,13 @@ public class Game{
 
     public int[][] getGrille() {
         return grille;
+    }
+
+    public int getMoveCount() {
+        return moveCount;
+    }
+
+    public void setMoveCount(int moveCount){
+        this.moveCount = moveCount;
     }
 }

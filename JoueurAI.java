@@ -107,6 +107,7 @@ public class JoueurAI extends Joueur{
         }
 
         System.out.println("best score: " + bestScore);
+        position.setMoveCount(position.getMoveCount() + 1);
         int randomIndex = new Random().nextInt(bestMoves.size());
         return bestMoves.get(randomIndex);
     }

@@ -52,7 +52,15 @@ public class Main {
             System.out.println("Joueur : " + currentPlayer.getNom());
             int numColonne;
             if (currentPlayer instanceof JoueurAI ){
-                numColonne = ((JoueurAI) currentPlayer).getBestMove(puissance, 10);
+                int depth = 10;
+                if (puissance.getMoveCount() >= 16){
+                    depth = 12;
+                }
+                if (puissance.getMoveCount() >= 25){
+                    depth = 15;
+                }
+                System.out.println(depth);
+                numColonne = ((JoueurAI) currentPlayer).getBestMove(puissance, depth);
             }else {
                 numColonne = currentPlayer.choisirCoup();
             }
